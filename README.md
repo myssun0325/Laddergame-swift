@@ -1,97 +1,31 @@
-# 진행 방법
+# 사다리게임
 
-- 사다리 게임에 요구사항을 파악한다.
-- 요구사항에 대한 구현을 완료한 후 자신의 github 아이디에 해당하는 브랜치에 Pull Request(이하 PR)를 통해 코드 리뷰 요청을 한다.
-- 코드 리뷰 피드백에 대한 개선 작업을 하고 다시 PUSH한다.
-- 모든 피드백을 완료하면 다음 단계를 도전하고 앞의 과정을 반복한다.
+- 터미널 기반의 간단한 사다리 게임을 작성한다.
+- 각 요구 사항을 충족시킬 때마다 PR을 보내고 코드리뷰를 통해 코드를 개선해나간다.
+- 프로그램을 설계하면서 객체와 함수의 역할의 분리에 대해 고민해보면서 작성한다.
+- Unit Test를 경험한다.
+- 스위프트 API 설계 가이드라인을 읽으면서 코드를 개선한다. [API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
 
-# 코드 리뷰 과정
-> 저장소 브랜치에 자신의 github 아이디에 해당하는 브랜치가 존재해야 한다.
->
-> 자신의 github 아이디에 해당하는 브랜치가 있는지 확인한다.
+# 코드리뷰 피드백에 대한 개선사항
+- 의도를 명확하게 나타낼 수 있는 변수 이름과 함수 이름을 사용한다. (주석이 필요하지 않을 정도)
+- 컬렉션타입의 배열
+- 객체 구조 개선
+- 커밋 로그를 작은 단위로 의미 있게 남기기
+- 코드리뷰 피드백에 대한 타입메서드를 만드는 나만의 기준
+	* 객체가 어떤 데이터를 쥐고 있지 않아서 어떤 변수에 저장될 필요가 없거나,
+	* 일회성으로 사용되거나,
+	* 다른 객체에서 공통된 값을 공유해서 사용하거나(공유된 데이터의 업데이트된 정보를 사용해야하는 경우) 입니다.
+- 코드내에서 사용되는 문자열이나 숫자 등을 하드코딩이 아닌 의미있는 변수나 상수 또는 enum 등을 사용하여 의미있는 값으로 개선
 
-1. 자신의 github 아이디에 해당하는 브랜치가 없는 경우 브랜치 생성 요청 채널을 통해 브랜치 생성을 요청한다.
-프로젝트를 자신의 계정으로 fork한다. 저장소 우측 상단의 fork 버튼을 활용한다.
-
-2. fork한 프로젝트를 자신의 컴퓨터로 clone한다.
-```
-git clone https://github.com/{본인_아이디}/{저장소 아이디}
-ex) https://github.com/godrm/swift-laddergame
-```
-
-3. clone한 프로젝트 이동
-```
-cd {저장소 아이디}
-ex) cd swift-laddergame
-```
-
-4. 본인 아이디로 브랜치를 만들기 위한 checkout
-```
-git checkout -t origin/본인_아이디
-ex) git checkout -t origin/godrm
-```
-
-5. 기능 구현을 위한 브랜치 생성 (연속번호를 붙여나간다)
-```
-git checkout -b 브랜치이름
-ex) git checkout -b ladder-step1
-```
-
-6. commit
-```
-git status //확인
-git rm 파일명 //삭제된 파일
-git add 파일명(or * 모두) // 추가/변경 파일
-git commit -m "메세지" // 커밋
-```
-
-7. 본인 원격 저장소에 올리기
-```
-git push --set-upstream origin 브랜치이름
-ex) git push --set-upstream origin ladder-step1
-```
-
-8. pull request
-	- pull request는 github 서비스에서 진행할 수 있다.
-	- pull request는 original 저장소의 브랜치(자신의 github 아이디)와 앞 단계에서 생성한 브랜치 이름을 기준으로 한다.
-
-	```
-	ex) code-squad/swift-laddergame godrm 브랜치 기준 => godrm/swift-laddergame ladder-step1
-	```
-	
-9. code review 및 push
-	- pull request를 통해 피드백을 받는다.
-	- 코드 리뷰 피드백에 대한 개선 작업을 하고 다시 PUSH한다.
-
-10. 기본(upstream) 브랜치 전환 및 base 저장소 추가하기(최초 시작하기 단계 한번만 하면 됨)
-
-	```
-	git checkout 본인_아이디
-	git remote add upstream base_저장소_url
-
-	ex) git checkout godrm
-	ex) git remote add upstream https://github.com/code-squad/swift-laddergame.git
-	```
-
-	- 위와 같이 base 저장소 추가한 후 remote 브랜치 목록을 본다.
-
-	```
-	git remote -v
-	```
-
-11. 기본 base 저장소와 sync하기 (PR 보낸 내용을 자신의 기본 저장소와 합치기)
-
-	```
-	git fetch upstream
-	git rebase upstream/본인_아이디
-	ex) git rebase upstream/godrm
-	```
-
-12. 다음 미션을 해결할 경우 [5단계 브랜치 생성]부터 다시 진행
-
-## 동영상을 통한 코드 리뷰() 를 통해 참고 가능
-
-- [fork하여 코드 리뷰하기](https://www.youtube.com/watch?v=ZSZoaG0PqLg) 
-- [PR 보내고 다시 PR보낼 때 유의 사항](https://www.youtube.com/watch?v=CbLNbCUsh5c&feature=youtu.be)
-
-## 실습 중 모든 질문은 슬랙 채널에서...
+- 마스터 피드백 : "ladderGame.makeLadder() 하면 내부에서 removeRepeatLadder()까지 한 꺼번에 하는 것과 어떤 차이가 있을까 생각해보세요."
+	- 피드백에 대한 나의 답변
+		- 현재의 코드의 로직상으로는 ladderGame.makeLadder() 내부에서 removeRepeatLadder()를 한꺼번에 처리하는게 좋은거 같습니다.
+			1. ladderGame.makeLadder()에서 넘기는 ladder 객체는 단순히 removeRepeatLadder()에 넘겨주는 사다리 객체(그 이후 사용되지 않는)를 만들기 위한 역할.
+			2. 때문에 굳이 변수에 넘겨서 또 하나의 객체를 생성할 필요가 없이 makeLadder에서 바로 넘겨주면된다.
+			3. 더불어 removeRepeatLadder()는 타입메서드로 구현되어 있고 의존되는 데이터가 없기 때문에 removeRepeatLadder가 호출되기 전의 makeLadder()의 코드에 영향을 주지 않습니다.
+			
+- 단위 테스트의 필요성 경험하기
+- TDD를 하는 이유 (TDD의 걸음마는 유닛테스트 연습부터...)
+- 의존성이 테스트에 미치는 영향
+- 반환타입의 중요성
+- 설계와 구조의 중요성
